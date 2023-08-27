@@ -1,0 +1,24 @@
+@font-face {
+    font-family: "NanumSquareRound";
+    font-weight: 500;
+    src: url("./NanumSquareRoundB.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: "NanumSquareRound";
+    font-weight: 300;
+    font-style: normal;
+    src: url("./NanumSquareRoundR.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: "NanumSquareRound";
+    font-weight: 700;
+    src: url("./NanumSquareRoundEB.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: "NanumSquareRound";
+    font-weight: 100;
+    src: url("./NanumSquareRoundL.ttf") format("truetype");
+}

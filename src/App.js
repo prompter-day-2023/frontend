@@ -1,24 +1,27 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { Route, Routes } from 'react-router-dom';
+import { createGlobalStyle } from 'styled-components';
+import Main from './pages/Main/MainContainer';
+import PageNotFound from './pages/PageNotFound'
+import Diary from "./pages/Diary/DiaryContainer";
+import "./assets/Fonts/Font.css";
 
-function App() {
+const GlobalStyle = createGlobalStyle`
+  body {
+    margin: 0;
+  }
+`;
+
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+    <GlobalStyle />
+    <Routes>
+      <Route path="/" element={<Main />} />
+      <Route path="/diary" element={<Diary />} />
+      <Route path="/*" element={<PageNotFound />} />
+    </Routes>
+    </>
   );
 }
 
