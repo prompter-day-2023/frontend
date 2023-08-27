@@ -24,7 +24,7 @@ const HeaderView = () => {
   );
 };
 
-const HeaderStyled = styled.header`
+const HeaderStyled = styled.div`
   position: fixed;
   top: 0;
   left: 0;
@@ -57,7 +57,7 @@ const HomeButton = styled.button`
   height: 100%;
   color: #242424;
   font-family: "NanumSquareRound";
-  font-size: 22px;
+  font-size: 20px;
   cursor: pointer;
   padding: 15px;
   border: none;
@@ -88,10 +88,10 @@ const InfoButton = styled.button`
 display: flex;
   justify-content: center;
   align-items:center;
-height: 100%;
+  height: 100%;
   color: #242424;
   font-family: "NanumSquareRound";
-  font-size: 22px;
+  font-size: 20px;
   cursor: pointer;
   padding: 20px;
   border: none;

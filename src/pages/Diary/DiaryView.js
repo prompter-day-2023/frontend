@@ -2,8 +2,12 @@ import React from 'react'
 import styled from "styled-components";
 import ProgressSteps from '../../components/ProgressBar/ProgressBarContainer';
 import BgImage from '../../assets/Images/BackgroundImage.png'
+import { useProgress } from '../../contexts/ProgressContext'; // <-- Import useProgress
 
-const DiaryView = ({content, setContent, title, setTitle, handleContentChange, step, setStep}) => {
+const DiaryView = ({navigator, content, setContent, title, setTitle, handleContentChange}) => {
+
+  const { step, setStep } = useProgress(); // <-- Use the useProgress hook here
+
     return (
         <DiaryWrapper>
           <InfoSection>
@@ -11,7 +15,7 @@ const DiaryView = ({content, setContent, title, setTitle, handleContentChange, s
               <Title>1. 일기를 적어봐요!</Title>
               <SubTitle>오늘 하루 어떤 활동을 했는지 적으면 꾸미가 그림으로 그릴게요.</SubTitle>
             </TitleContainer>
-            <ProgressSteps step={step} /> {/* ProgressSteps 컴포넌트에 현재 step 상태를 props로 전달합니다. */}
+            <ProgressSteps step={step} />
           </InfoSection>
     
           <TextSection>
@@ -28,14 +32,18 @@ const DiaryView = ({content, setContent, title, setTitle, handleContentChange, s
                 value={content}
                 onChange={handleContentChange}
               />
-              <CharCount exceedLimit={content.length > 500}>{content.length} / 500 글자</CharCount>
+              <CharCount exceedLimit={content.length > 250}>{content.length} / 250 글자</CharCount>
             </TextAreaWrapper>
           </TextSection>
     
           <ButtonContainer>
             <Button 
               disabled={!title || !content || step === 4}
-              onClick={() => setStep(prev => Math.min(4, prev + 1))}
+              onClick={() => {
+                setStep(prev => Math.min(4, prev + 1));
+                navigator('/select');
+
+              }}
             >
               다 적었어요!
             </Button>
@@ -64,7 +72,7 @@ const InfoSection = styled.div`
     justify-content: space-between;
     align-items: center;
     width: 1200px;
-    padding-top: 50px;
+    padding-top: 100px;
     margin-bottom: 50px;
 `
 const TitleContainer = styled.div`
@@ -103,6 +111,7 @@ const CharCount = styled.div`
 
 const TextArea = styled.textarea`
     font-family: "NanumSquareRound";
+    font-weight: 300;
     border: 2px solid #e9e9e9;
     border-radius: 15px;
     width: 1156px;
@@ -110,6 +119,7 @@ const TextArea = styled.textarea`
     vertical-align: top; 
     resize: none; 
     padding: 20px;
+    font-size: 16px;
 `;
 
 const InputContainer = styled.div`
@@ -120,6 +130,9 @@ const InputContainer = styled.div`
 `;
 
 const TitleInput = styled.input`
+
+    font-family: "NanumSquareRound";
+    font-weight: 300;
     width: 100%;
     height: 40px;
     border: 2px solid #e9e9e9;
@@ -140,7 +153,7 @@ const ButtonContainer = styled.div`
 const Button = styled.button`
   width: 320px;
   height: 60px;
-  background-color: ${props => props.disabled ? '#e9e9e9' : '#4192F7'};
+  background-color: ${props => props.disabled ? "#747474" : "#4192F7"};
   cursor: ${props => props.disabled ? 'not-allowed' : 'pointer'};
   padding: 10px;
   border-radius: 30px;

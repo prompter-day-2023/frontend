@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled, { createGlobalStyle } from 'styled-components';
 
 
 const GlobalStyles = createGlobalStyle`
   :root {
-    --line-fill: #3498db;
-    --line-empty: #e0e0e0;
+    --line-fill: #4192F7;
+    --line-empty: #e9e9e9;
   }
 `;
 
@@ -18,10 +18,8 @@ const ProgressContainer = styled.div`
   justify-content: space-between;
   position: relative;
   margin-bottom: 30px;
-  min-width: 350px;
+  min-width: 250px;
 `;
-
-// If you decide to uncomment the empty and color bar, you can include these styles
 
 const ProgressBarBackground = styled.div`
   background-color: var(--line-empty);
@@ -49,7 +47,6 @@ const ProgressBar = styled.div`
 
 const Circle = styled.div`
   background-color: #fff;
-  color: #999;
   border-radius: 50%;
   height: 30px;
   width: 30px;
@@ -61,32 +58,9 @@ const Circle = styled.div`
   z-index: 2;
 
   &.active {
+    color: #fff;
     border-color: var(--line-fill);
-  }
-`;
-
-const Button = styled.button`
-  background-color: var(--line-fill);
-  color: #fff;
-  border: 0;
-  border-radius: 6px;
-  cursor: pointer;
-  font-family: inherit;
-  padding: 8px 30px;
-  margin: 5px;
-  font-size: 14px;
-  
-  &:active {
-    transform: scale(0.98);
-  }
-  
-  &:focus {
-    outline: 0;
-  }
-  
-  &:disabled {
-    background-color: var(--line-empty);
-    cursor: not-allowed;
+    background-color: var(--line-fill);
   }
 `;
 
