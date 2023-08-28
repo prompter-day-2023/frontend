@@ -6,9 +6,8 @@ import PageNotFound from './pages/PageNotFound'
 import Diary from "./pages/Diary/DiaryContainer";
 import SelectContainer from "./pages/Select/SelectContainer";
 import "./assets/Fonts/Font.css";
-
-// Import ProgressProvider
 import { ProgressProvider } from './contexts/ProgressContext';
+import CompleteContainer from "./pages/Complete/CompleteContainer";
 
 const GlobalStyle = createGlobalStyle`
   body {
@@ -19,12 +18,12 @@ const GlobalStyle = createGlobalStyle`
 const App = () => {
   return (
     <ProgressProvider>
-
       <GlobalStyle />
       <Routes>
         <Route path="/" element={<Main />} />
           <Route path="/diary" element={<Diary />} />
           <Route path="/select" element={<SelectContainer />} />
+          <Route path="/complete" element={<CompleteContainer />} />
         <Route path="/*" element={<PageNotFound />} />
       </Routes>
       </ProgressProvider>

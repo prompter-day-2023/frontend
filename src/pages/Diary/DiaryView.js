@@ -1,12 +1,9 @@
 import React from 'react'
 import styled from "styled-components";
-import ProgressSteps from '../../components/ProgressBar/ProgressBarContainer';
 import BgImage from '../../assets/Images/BackgroundImage.png'
-import { useProgress } from '../../contexts/ProgressContext'; // <-- Import useProgress
 
 const DiaryView = ({navigator, content, setContent, title, setTitle, handleContentChange}) => {
 
-  const { step, setStep } = useProgress(); // <-- Use the useProgress hook here
 
     return (
         <DiaryWrapper>
@@ -15,7 +12,6 @@ const DiaryView = ({navigator, content, setContent, title, setTitle, handleConte
               <Title>1. 일기를 적어봐요!</Title>
               <SubTitle>오늘 하루 어떤 활동을 했는지 적으면 꾸미가 그림으로 그릴게요.</SubTitle>
             </TitleContainer>
-            <ProgressSteps step={step} />
           </InfoSection>
     
           <TextSection>
@@ -38,9 +34,8 @@ const DiaryView = ({navigator, content, setContent, title, setTitle, handleConte
     
           <ButtonContainer>
             <Button 
-              disabled={!title || !content || step === 4}
+              disabled={!title || !content}
               onClick={() => {
-                setStep(prev => Math.min(4, prev + 1));
                 navigator('/select');
 
               }}

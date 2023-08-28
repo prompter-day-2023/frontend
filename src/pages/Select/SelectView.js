@@ -1,11 +1,10 @@
 import React from 'react'
 import styled from "styled-components";
-import ProgressSteps from '../../components/ProgressBar/ProgressBarContainer';
 import BgImage from '../../assets/Images/BackgroundImage.png'
-import { useProgress } from '../../contexts/ProgressContext'; // <-- Import useProgress
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faRotateRight } from "@fortawesome/free-solid-svg-icons";
 
-const SelectView = () => {
-    const { step, setStep } = useProgress(); // <-- Use the useProgress hook here
+const SelectView = ({ navigator }) => {
 
     return (
         <DiaryWrapper>
@@ -14,7 +13,6 @@ const SelectView = () => {
               <Title>2. 색칠할 그림을 선택해요</Title>
               <SubTitle>마음에 드는 그림을 선택하면 색칠 공부 도안으로 바꿔줄게요.</SubTitle>
             </TitleContainer>
-            <ProgressSteps step={step} />
           </InfoSection>
           <KeywordSection>
             <Keyword>
@@ -23,25 +21,25 @@ const SelectView = () => {
 
           </KeywordSection>
           <DrawingSection>
-            <Drawing>
+            <Drawing onClick={()=> navigator('/complete')}>
                 그림 1
             </Drawing>
-            <Drawing>
+            <Drawing onClick={()=> navigator('/complete')}>
                 그림 1
             </Drawing>
-            <Drawing>
+            <Drawing onClick={()=> navigator('/complete')}>
                 그림 1
             </Drawing>
-            <Drawing>
+            <Drawing onClick={()=> navigator('/complete')}>
                 그림 1
             </Drawing>
           </DrawingSection>
     
           <ButtonContainer>
             <Button 
-              onClick={() => setStep(prev => Math.min(4, prev + 1))}
               disabled="True"
             >
+            <FontAwesomeIcon icon={faRotateRight} style={{marginRight: "25px"}}/>
               다른 그림 보기
             </Button>
           </ButtonContainer>
@@ -100,20 +98,25 @@ const ButtonContainer = styled.div`
 `
 
 const Button = styled.button`
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 320px;
   height: 60px;
-  background-color: #4192F7;
+  background-color: #fff;
   cursor: ${props => props.disabled ? 'not-allowed' : 'pointer'};
   padding: 10px;
   border-radius: 30px;
   border: none;
   font-family: "NanumSquareRound";
-  color: #fff;
+  color: #242424;
   font-size: 18px;
   transition: transform 0.3s, box-shadow 0.3s; 
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 
   &:hover {
+    background-color: #4192F7;
+    color: #fff;
     transform: scale(1.05); 
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); 
   }
@@ -142,20 +145,25 @@ align-items: center;
 
 const DrawingSection = styled.div`
   display: flex;
-  margin-top: 10px;
+  margin-top: 15px;
   max-width: 1200px;
-  gap: 10px;
+  gap: 15px;
 `
 
-const Drawing = styled.div`
-width: 300px;
-height: 300px;
-border: 2px solid #e9e9e9;
-border-radius: 15px;
-padding: 10px 20px;
-font-size: 16px;
-background-color: #fff;
+const Drawing = styled.button`
+  width: 300px;
+  height: 300px;
+  border: 2px solid #e9e9e9;
+  border-radius: 15px;
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #fff;
+  cursor: pointer;
+  transition: transform 0.3s;  // Add this line for smooth animation
 
-`
+  &:hover {
+    transform: scale(1.05);  // Add this line to scale the button on hover
+  }
+`;
 
 export default SelectView;

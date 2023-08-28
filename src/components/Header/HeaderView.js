@@ -85,7 +85,7 @@ const HomeButton = styled.button`
 `;
 
 const InfoButton = styled.button`
-display: flex;
+  display: flex;
   justify-content: center;
   align-items:center;
   height: 100%;

@@ -1,7 +1,6 @@
 import React from 'react';
 import styled, { createGlobalStyle } from 'styled-components';
 
-
 const GlobalStyles = createGlobalStyle`
   :root {
     --line-fill: #4192F7;
@@ -16,6 +15,7 @@ const Container = styled.div`
 const ProgressContainer = styled.div`
   display: flex;
   justify-content: space-between;
+  align-items: center;
   position: relative;
   margin-bottom: 30px;
   min-width: 250px;
@@ -44,7 +44,6 @@ const ProgressBar = styled.div`
   transition: 0.4s ease;
 `;
 
-
 const Circle = styled.div`
   background-color: #fff;
   border-radius: 50%;
@@ -64,21 +63,19 @@ const Circle = styled.div`
   }
 `;
 
-
 const ProgressSteps = ({ step }) => { 
+  const progressPercent = step === 0 ? 0 : (step * 50) - 50;
 
   return (
     <Container>
       <GlobalStyles />
       <ProgressContainer>
         <ProgressBarBackground />
-        <ProgressBar progress={(step - 1) * 33.33} />
+        <ProgressBar progress={progressPercent} />
         <Circle className={step >= 1 ? 'active' : ''}>1</Circle>
         <Circle className={step >= 2 ? 'active' : ''}>2</Circle>
         <Circle className={step >= 3 ? 'active' : ''}>3</Circle>
-        <Circle className={step >= 4 ? 'active' : ''}>4</Circle>
       </ProgressContainer>
-      
     </Container>
   );
 };
