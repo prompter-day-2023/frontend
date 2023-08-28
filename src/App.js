@@ -8,7 +8,7 @@ import SelectContainer from "./pages/Select/SelectContainer";
 import "./assets/Fonts/Font.css";
 import { ProgressProvider } from './contexts/ProgressContext';
 import CompleteContainer from "./pages/Complete/CompleteContainer";
-
+import Info from "./pages/Info/InfoContainer"
 const GlobalStyle = createGlobalStyle`
   body {
     margin: 0;
@@ -21,9 +21,10 @@ const App = () => {
       <GlobalStyle />
       <Routes>
         <Route path="/" element={<Main />} />
-          <Route path="/diary" element={<Diary />} />
-          <Route path="/select" element={<SelectContainer />} />
-          <Route path="/complete" element={<CompleteContainer />} />
+        <Route path="/info" element={<Info />} />
+        <Route path="/diary" element={<Diary />} />
+        <Route path="/select" element={<SelectContainer />} />
+        <Route path="/complete" element={<CompleteContainer />} />
         <Route path="/*" element={<PageNotFound />} />
       </Routes>
       </ProgressProvider>

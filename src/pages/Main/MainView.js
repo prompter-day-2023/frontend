@@ -2,8 +2,9 @@ import React from 'react'
 import styled from 'styled-components'
 import MainImage from '../../assets/Images/BookAndPencil.svg'
 import BgImage from '../../assets/Images/BackgroundImage.png'
+import GenrativeAI from '../../assets/Images/GnerativeAI.svg'
 
-const MainView = ({navigator}) => {
+const MainView = ({navigator, handleModalToggle, isModalVisible}) => {
   return (
     <MainWrapper>
       <TitleContainer>
@@ -19,7 +20,20 @@ const MainView = ({navigator}) => {
         <Button onClick={() => navigator('/diary')}>AI 그림일기 만들기</Button>
       </ButtonContainer>
       <SubInfoText>꾸미는 생성형 인공지능을 이용해 일기를 색칠공부 도안으로 바꿔줘요.</SubInfoText>
-      <SubInfoButton>생성형 인공지능이란?</SubInfoButton>
+      <SubInfoButton onClick={handleModalToggle}>생성형 인공지능이란?</SubInfoButton>
+      {isModalVisible && (
+        <Modal onClick={handleModalToggle}>
+          <ModalContent onClick={(e) => e.stopPropagation()}>
+            <CloseButton onClick={handleModalToggle}>&times;</CloseButton>
+            <ModalTitle>생성형 인공지능이란?</ModalTitle>
+            <ImageContainer>
+              <img src={GenrativeAI} alt='Ai' />
+            </ImageContainer>
+            <ModalContents>생성형 인공지능 (AI) 기술은
+                인공신경망을 이용하여 이미지, 비디오, 오디오, 텍스트 등을 포함한 대량의 데이터를 학습하여 사람과 유사한 방식으로 문맥과 의미를 이해하고 새로운 데이터를 자동으로 생성해 주는 기술을 의미해요.</ModalContents>
+          </ModalContent>
+        </Modal>
+      )}
     </MainWrapper>
   )
 }
@@ -116,6 +130,53 @@ const SubInfoButton = styled.button`
   text-decoration: underline;
   border: none;
   background-color: rgba(0,0,0,0);
+`
+
+const Modal = styled.div`
+  position: fixed;
+  width: 520px;
+  height: 390px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const ModalContent = styled.div`
+  width: 100%;
+  height: 390px;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+`;
+
+const CloseButton = styled.button`
+  position: absolute;
+  right: 20px;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 30px;
+  color: #747474;
+`;
+
+const ModalTitle = styled.h3`
+  font-family: NanumSquareRound;
+  text-align: center;
+  padding-top: 30px;
+  padding-bottom: 10px;
+`
+
+const ModalContents = styled.p`
+font-family: NanumSquareRound;
+font-weight: 300;
+line-height: 2;
+padding: 15px;
+`
+
+const ImageContainer = styled.div`
+  display: flex;
+  justify-content: center;
 `
 
 export default MainView

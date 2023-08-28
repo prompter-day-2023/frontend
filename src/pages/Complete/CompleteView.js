@@ -58,7 +58,7 @@ const InfoSection = styled.div`
     align-items: center;
     width: 1200px;
     padding-top: 100px;
-    margin-bottom: 50px;
+    margin-bottom: 30px;
 `
 const TitleContainer = styled.div`
     display: flex;

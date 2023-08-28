@@ -159,10 +159,9 @@ const Drawing = styled.button`
   font-size: 16px;
   background-color: #fff;
   cursor: pointer;
-  transition: transform 0.3s;  // Add this line for smooth animation
 
   &:hover {
-    transform: scale(1.05);  // Add this line to scale the button on hover
+    border: 4px solid #4192F7;
   }
 `;
 

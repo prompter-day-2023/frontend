@@ -2,7 +2,7 @@ import React from 'react'
 import styled from "styled-components";
 import BgImage from '../../assets/Images/BackgroundImage.png'
 
-const DiaryView = ({navigator, content, setContent, title, setTitle, handleContentChange}) => {
+const DiaryView = ({navigator, content, setContent, title, setTitle, handleContentChange, handleSubmit}) => {
 
 
     return (
@@ -31,17 +31,13 @@ const DiaryView = ({navigator, content, setContent, title, setTitle, handleConte
               <CharCount exceedLimit={content.length > 250}>{content.length} / 250 글자</CharCount>
             </TextAreaWrapper>
           </TextSection>
-    
           <ButtonContainer>
-            <Button 
-              disabled={!title || !content}
-              onClick={() => {
-                navigator('/select');
-
-              }}
-            >
+          <Button 
+          disabled={!title || !content}
+          onClick={handleSubmit}
+          >
               다 적었어요!
-            </Button>
+          </Button>
           </ButtonContainer>
         </DiaryWrapper>
       )

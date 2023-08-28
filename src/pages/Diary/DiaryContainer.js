@@ -16,6 +16,37 @@ const DiaryContainer = () => {
   };
 
 
+  const handleSubmit = async () => {
+    try {
+        const endpoint = 'http://localhost:5000/diary';
+
+        const payload = {
+            content: content
+        };
+
+        const response = await fetch(endpoint, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(payload)
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+            console.log(data.imageUrl);
+            navigator('/select'); 
+        } else {
+            console.error('Failed to send diary content:', data.message);
+        }
+    } catch (error) {
+        console.error('Error:', error);
+    }
+}
+
+
+
   return (
     <DiaryView 
       content={content} 
@@ -26,6 +57,7 @@ const DiaryContainer = () => {
       step={step}
       setStep={setStep}
       navigator={navigator}
+      handleSubmit={handleSubmit}
     />
 )
 }
