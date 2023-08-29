@@ -9,7 +9,10 @@ const HeaderView = () => {
     <HeaderStyled>
       <Image src={LogoImage} alt="Logo" />
       <ButtonWrapper>
-        <StyledLink to="/" onClick={() => setCurrentPage("home")} isActive={currentPage === "home"}>
+        <StyledLink to="/" onClick={() => 
+          {setCurrentPage("home")
+          localStorage.clear();
+          }} isActive={currentPage === "home"}>
           꾸미
           {currentPage === "home" && <Underline />}
         </StyledLink>

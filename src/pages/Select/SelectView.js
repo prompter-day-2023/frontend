@@ -3,8 +3,27 @@ import styled from "styled-components";
 import BgImage from '../../assets/Images/BackgroundImage.png'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faRotateRight } from "@fortawesome/free-solid-svg-icons";
+import { useDispatch } from 'react-redux';
+import { setImageUrl } from '../../redux/actions';
+import axios from 'axios';
 
-const SelectView = ({ navigator }) => {
+const SelectView = ({ navigator, keyword, imageURLs }) => {
+    const dispatch = useDispatch();
+
+    const handleImageClick = async (url) => {
+      try {
+          const response = await axios.post('http://127.0.0.1:5000/line-drawing', { imageUrl: url });
+          console.log(response);
+          const convertedImgUrl = response.data.response;
+          localStorage.clear();
+          localStorage.setItem('convertedImgUrl', convertedImgUrl);
+          dispatch(setImageUrl(url));
+          navigator('/complete');
+      
+      } catch (error) {
+          console.error('Error during the request:', error);
+      }
+  }
 
     return (
         <DiaryWrapper>
@@ -15,25 +34,26 @@ const SelectView = ({ navigator }) => {
             </TitleContainer>
           </InfoSection>
           <KeywordSection>
-            <Keyword>
-                키워드1, 키워드2, 키워드3, 키워드4, 키워드5
+            <Keyword>추출된 키워드 :
+              {
+                keyword.map((kw, index) => (
+                  <p key={index}>[{kw}]</p>
+                ))
+              }
             </Keyword>
 
           </KeywordSection>
           <DrawingSection>
-            <Drawing onClick={()=> navigator('/complete')}>
-                그림 1
-            </Drawing>
-            <Drawing onClick={()=> navigator('/complete')}>
-                그림 1
-            </Drawing>
-            <Drawing onClick={()=> navigator('/complete')}>
-                그림 1
-            </Drawing>
-            <Drawing onClick={()=> navigator('/complete')}>
-                그림 1
-            </Drawing>
-          </DrawingSection>
+            {
+                imageURLs.map((url, index) => (
+                    <Drawing 
+                        key={index} 
+                        style={{ backgroundImage: `url(${url})` }} 
+                        onClick={() => handleImageClick(url)}
+                    />
+                ))
+            }
+        </DrawingSection>
     
           <ButtonContainer>
             <Button 
@@ -159,10 +179,12 @@ const Drawing = styled.button`
   font-size: 16px;
   background-color: #fff;
   cursor: pointer;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 
   &:hover {
     border: 4px solid #4192F7;
   }
 `;
-
 export default SelectView;

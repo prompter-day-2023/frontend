@@ -3,7 +3,7 @@ import styled from "styled-components";
 import BgImage from '../../assets/Images/BackgroundImage.png'
 
 const CompleteView = () => {
-
+    const convertedImgUrl = localStorage.getItem("convertedImgUrl");
     return (
         <CompleteViewWrapper>
             <InfoSection>
@@ -14,7 +14,7 @@ const CompleteView = () => {
           </InfoSection>
           <MainSection>
           <DrawingDiarySection>
-            <DrawingDiary />
+            <DrawingDiary style={{ backgroundImage: `url(${convertedImgUrl})` }} />
           </DrawingDiarySection>
           <ButtonContainer>
             <Button 
@@ -80,13 +80,16 @@ const SubTitle = styled.p`
 const DrawingDiarySection = styled.div`
 `
 
-const DrawingDiary = styled.img`
+const DrawingDiary = styled.div`
     width: 800px;
-    height: 500px;
-    border: 2px solid #e9e9e9;
-    border-radius: 15px;
+    height: 550px;
+    border: 3px solid #e9e9e9;
+    border-radius: 30px;
     background-color: #fff;
-`
+    background-size: contain; // or use 'cover' depending on your requirement
+    background-position: center;
+    background-repeat: no-repeat;
+`;
 
 const Button = styled.button`
   width: 320px;

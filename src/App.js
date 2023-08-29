@@ -9,6 +9,9 @@ import "./assets/Fonts/Font.css";
 import { ProgressProvider } from './contexts/ProgressContext';
 import CompleteContainer from "./pages/Complete/CompleteContainer";
 import Info from "./pages/Info/InfoContainer"
+import { Provider } from 'react-redux';
+import store from './redux/store';
+
 const GlobalStyle = createGlobalStyle`
   body {
     margin: 0;
@@ -17,7 +20,7 @@ const GlobalStyle = createGlobalStyle`
 
 const App = () => {
   return (
-    <ProgressProvider>
+    <Provider store={store}>
       <GlobalStyle />
       <Routes>
         <Route path="/" element={<Main />} />
@@ -27,8 +30,7 @@ const App = () => {
         <Route path="/complete" element={<CompleteContainer />} />
         <Route path="/*" element={<PageNotFound />} />
       </Routes>
-      </ProgressProvider>
-
+   </Provider>
   );
 }
 

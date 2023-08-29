@@ -5,8 +5,6 @@ import { useNavigate } from 'react-router-dom'
 const DiaryContainer = () => {
   const [content, setContent] = useState('');
   const [title, setTitle] = useState('');
-  const [step, setStep] = useState(1);
-
   const navigator = useNavigate();
 
   const handleContentChange = (e) => {
@@ -15,15 +13,22 @@ const DiaryContainer = () => {
     }
   };
 
+  const saveToLocalStorage = (data) => {
+    if (!data) return;
+    console.log(data);
+    const { image_url, keywords } = data.data;
+  
+    localStorage.setItem("imageURLs", JSON.stringify(image_url));
+    localStorage.setItem("keywords", JSON.stringify(keywords));
+  };
 
   const handleSubmit = async () => {
     try {
-        const endpoint = 'http://localhost:5000/diary';
-
+        const endpoint = 'http://127.0.0.1:5000/diary';
         const payload = {
-            content: content
+            title: title,
+            contents: content
         };
-
         const response = await fetch(endpoint, {
             method: 'POST',
             headers: {
@@ -35,8 +40,8 @@ const DiaryContainer = () => {
         const data = await response.json();
 
         if (response.ok) {
-            console.log(data.imageUrl);
-            navigator('/select'); 
+          saveToLocalStorage(data);
+          navigator('/select'); 
         } else {
             console.error('Failed to send diary content:', data.message);
         }
@@ -45,8 +50,6 @@ const DiaryContainer = () => {
     }
 }
 
-
-
   return (
     <DiaryView 
       content={content} 
@@ -54,8 +57,6 @@ const DiaryContainer = () => {
       setTitle={setTitle} 
       setContent={setContent} 
       handleContentChange={handleContentChange}
-      step={step}
-      setStep={setStep}
       navigator={navigator}
       handleSubmit={handleSubmit}
     />
