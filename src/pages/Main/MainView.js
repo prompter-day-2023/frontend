@@ -107,14 +107,14 @@ const Button = styled.button`
   border: none;
   font-family: "NanumSquareRound";
   color: #fff;
-  background-color: #4192F7;
+  background: linear-gradient(145deg, #3b8df5, #4577f8); // 선형 그라데이션 추가
   font-size: 18px;
   transition: transform 0.3s, box-shadow 0.3s; 
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); // 버튼에 초기 그림자 추가
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1), inset 0 2px 4px rgba(255, 255, 255, 0.2); // 내부 그림자 추가
 
   &:hover {
     transform: scale(1.05); 
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); // 호버 시 그림자 강조
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15), inset 0 2px 4px rgba(255, 255, 255, 0.2); // 호버 시 그림자 강조
   }
 `;
 
