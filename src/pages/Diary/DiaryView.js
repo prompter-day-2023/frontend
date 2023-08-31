@@ -2,46 +2,47 @@ import React from 'react'
 import styled from "styled-components";
 import BgImage from '../../assets/Images/BackgroundImage.png'
 
-const DiaryView = ({navigator, content, setContent, title, setTitle, handleContentChange, handleSubmit}) => {
-
-
-    return (
-        <DiaryWrapper>
+const DiaryView = ({ navigator, content, title, setContent, setTitle, handleContentChange, handleSubmit }) => {
+  return (
+      <DiaryWrapper>
           <InfoSection>
-            <TitleContainer>
-              <Title>1. 일기를 적어봐요!</Title>
-              <SubTitle>오늘 하루 어떤 활동을 했는지 적으면 꾸미가 그림으로 그릴게요.</SubTitle>
-            </TitleContainer>
+              <TitleContainer>
+                  <Title>1. 일기를 적어봐요!</Title>
+                  <SubTitle>오늘 하루 어떤 활동을 했는지 적으면 꾸미가 그림으로 그릴게요.</SubTitle>
+              </TitleContainer>
           </InfoSection>
-    
+
           <TextSection>
-            <InputContainer>
-              <TitleInput 
-                placeholder="일기 제목을 입력하세요." 
-                value={title}
-                onChange={(e) => setTitle(e.target.value)}
-              />
-            </InputContainer>
-            <TextAreaWrapper>
-              <TextArea
-                placeholder="일기 내용을 입력하세요."
-                value={content}
-                onChange={handleContentChange}
-              />
-              <CharCount exceedLimit={content.length > 250}>{content.length} / 250 글자</CharCount>
-            </TextAreaWrapper>
+              <InputContainer>
+                  <TitleInput
+                      placeholder="일기 제목을 입력하세요."
+                      value={title}
+                      onChange={setTitle} 
+                  />
+              </InputContainer>
+              <TextAreaWrapper>
+                  <TextArea
+                      placeholder="일기 내용을 입력하세요."
+                      value={content}
+                      onChange={handleContentChange}
+                  />
+                  <CharCount exceedLimit={content.length > 250}>{content.length} / 250 글자</CharCount>
+              </TextAreaWrapper>
           </TextSection>
+
           <ButtonContainer>
-          <Button 
-          disabled={!title || !content}
-          onClick={handleSubmit}
-          >
-              다 적었어요!
-          </Button>
+              <Button 
+                  disabled={!title || !content}
+                  onClick={handleSubmit}
+              >
+                  다 적었어요!
+              </Button>
           </ButtonContainer>
-        </DiaryWrapper>
-      )
+      </DiaryWrapper>
+  )
 }
+
+
 const DiaryWrapper = styled.div`
     background-color: #f3f3f3;
     background-image: url(${BgImage});

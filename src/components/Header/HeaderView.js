@@ -2,15 +2,20 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import LogoImage from '../../assets/Images/Logo.svg';
 import { Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { resetTitle, resetContent } from '../../redux/actions';
 
 const HeaderView = () => {
-  const [currentPage, setCurrentPage] = useState("home"); // 기본 페이지를 "home"으로 설정
+  const dispatch = useDispatch(); 
+  const [currentPage, setCurrentPage] = useState("home");
   return (
     <HeaderStyled>
       <Image src={LogoImage} alt="Logo" />
       <ButtonWrapper>
         <StyledLink to="/" onClick={() => 
           {setCurrentPage("home")
+          dispatch(resetTitle()); 
+          dispatch(resetContent());
           localStorage.clear();
           }} isActive={currentPage === "home"}>
           꾸미
@@ -18,7 +23,13 @@ const HeaderView = () => {
         </StyledLink>
       </ButtonWrapper>
       <ButtonWrapper>
-        <StyledLink to="/info" onClick={() => setCurrentPage("info")} isActive={currentPage === "info"}>
+        <StyledLink to="/info" onClick={() => {
+          setCurrentPage("info")
+          dispatch(resetTitle()); 
+          dispatch(resetContent());
+          localStorage.clear();
+        }
+          } isActive={currentPage === "info"}>
           활용법
           {currentPage === "info" && <Underline />}
         </StyledLink>

@@ -1,14 +1,76 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react';
 import styled from "styled-components";
 import BgImage from '../../assets/Images/BackgroundImage.png'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faRotateRight } from "@fortawesome/free-solid-svg-icons";
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux'; 
 import { setImageUrl } from '../../redux/actions';
 import axios from 'axios';
 
 const SelectView = ({ navigator, keyword, imageURLs }) => {
-    const dispatch = useDispatch();
+  const dispatch = useDispatch();
+  const [localImageURLs, setLocalImageURLs] = useState([]);
+
+  useEffect(() => {
+    const loadImageURLs = () => {
+      const urls = localStorage.getItem('imageURLs');
+      if (urls) {
+        setLocalImageURLs(JSON.parse(urls));
+      }
+    };
+  
+    loadImageURLs();
+  
+    window.addEventListener('storage', loadImageURLs);
+  
+    return () => {
+      window.removeEventListener('storage', loadImageURLs);
+    };
+  }, [setLocalImageURLs]);
+
+
+    const title = useSelector(state => state.title);
+    const content = useSelector(state => state.content);
+
+    const saveToLocalStorage = (data) => {
+      if (!data) return;
+      console.log(data);
+      const { image_url, keywords } = data.data;
+    
+      localStorage.setItem("imageURLs", JSON.stringify(image_url));
+      localStorage.setItem("keywords", JSON.stringify(keywords));
+      setLocalImageURLs(image_url);  // <- 상태를 즉시 업데이트합니다.
+    };
+
+    const handleButtonClick = async () => {
+      console.log(title);
+      console.log(content);
+
+      try {
+          const endpoint = 'http://127.0.0.1:5000/diary';
+          const payload = {
+              title: title,
+              contents: content
+          };
+          const response = await fetch(endpoint, {
+              method: 'POST',
+              headers: {
+                  'Content-Type': 'application/json'
+              },
+              body: JSON.stringify(payload)
+          });
+  
+          const data = await response.json();
+  
+          if (response.ok) {
+            saveToLocalStorage(data);
+          } else {
+              console.error('Failed to send diary content:', data.message);
+          }
+      } catch (error) {
+          console.error('Error:', error);
+      }
+  }
 
     const handleImageClick = async (url) => {
       try {
@@ -44,21 +106,21 @@ const SelectView = ({ navigator, keyword, imageURLs }) => {
 
           </KeywordSection>
           <DrawingSection>
-            {
-                imageURLs.map((url, index) => (
-                    <Drawing 
-                        key={index} 
-                        style={{ backgroundImage: `url(${url})` }} 
-                        onClick={() => handleImageClick(url)}
-                    />
-                ))
-            }
-        </DrawingSection>
+        {
+          localImageURLs.map((url, index) => (
+            <Drawing 
+              key={index} 
+              style={{ backgroundImage: `url(${url})` }} 
+              onClick={() => handleImageClick(url)}
+            />
+          ))
+        }
+      </DrawingSection>
     
           <ButtonContainer>
             <Button 
-              disabled="True"
-            >
+              onClick={handleButtonClick}
+              >
             <FontAwesomeIcon icon={faRotateRight} style={{marginRight: "25px"}}/>
               다른 그림 보기
             </Button>
@@ -80,7 +142,6 @@ const DiaryWrapper = styled.div`
     flex-direction: column;
     align-items: center;
     background-color: #f3f3f3;
-
 `
 
 const InfoSection = styled.div`

@@ -1,17 +1,26 @@
 import React, { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { setTitle, setContent } from '../../redux/actions';
 import DiaryView from './DiaryView'
 import { useNavigate } from 'react-router-dom'
 
 const DiaryContainer = () => {
-  const [content, setContent] = useState('');
-  const [title, setTitle] = useState('');
+  const dispatch = useDispatch();
   const navigator = useNavigate();
+
+  const title = useSelector(state => state.title);
+  const content = useSelector(state => state.content);
+
+  const handleTitleChange = (e) => {
+    dispatch(setTitle(e.target.value));
+  };
 
   const handleContentChange = (e) => {
     if (e.target.value.length <= 250) {
-      setContent(e.target.value);
+      dispatch(setContent(e.target.value));
     }
   };
+
 
   const saveToLocalStorage = (data) => {
     if (!data) return;
@@ -23,6 +32,8 @@ const DiaryContainer = () => {
   };
 
   const handleSubmit = async () => {
+    console.log(title);
+    console.log(content);
     try {
         const endpoint = 'http://127.0.0.1:5000/diary';
         const payload = {
@@ -52,14 +63,15 @@ const DiaryContainer = () => {
 
   return (
     <DiaryView 
-      content={content} 
-      title={title} 
-      setTitle={setTitle} 
-      setContent={setContent} 
-      handleContentChange={handleContentChange}
-      navigator={navigator}
-      handleSubmit={handleSubmit}
-    />
+    content={content} 
+    title={title} 
+    setTitle={handleTitleChange} 
+    setContent={handleContentChange} 
+    handleContentChange={handleContentChange}
+    navigator={navigator}
+    handleSubmit={handleSubmit}
+  />
+
 )
 }
 

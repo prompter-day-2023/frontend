@@ -4,6 +4,8 @@ import BgImage from '../../assets/Images/BackgroundImage.png'
 
 const CompleteView = () => {
     const convertedImgUrl = localStorage.getItem("convertedImgUrl");
+  
+
     return (
         <CompleteViewWrapper>
             <InfoSection>
@@ -14,16 +16,12 @@ const CompleteView = () => {
           </InfoSection>
           <MainSection>
           <DrawingDiarySection>
-            <DrawingDiary style={{ backgroundImage: `url(${convertedImgUrl})` }} />
-          </DrawingDiarySection>
-          <ButtonContainer>
-            <Button 
-              onClick={() => {
-
-              }}
-            >
+            <DrawingDiary id="drawingDiary" style={{ backgroundImage: `url(${convertedImgUrl})` }} />
+        </DrawingDiarySection>
+        <ButtonContainer>
+            <Button>
                 저장하기
-              </Button>
+            </Button>
               <SubButton 
               onClick={() => {
 
