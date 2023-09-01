@@ -38,7 +38,8 @@ const DiaryImg = styled.img`
     margin-bottom: 30px;
     margin-top: 30px;
     width: 90%;
-    object-fit: cover;
+    height: 400px;
+    object-fit: contain;
 `;
 
 const DiaryHeader = styled.div`
