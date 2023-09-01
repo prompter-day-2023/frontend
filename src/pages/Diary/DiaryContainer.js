@@ -3,8 +3,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import { setTitle, setContent } from '../../redux/actions';
 import DiaryView from './DiaryView'
 import { useNavigate } from 'react-router-dom'
-import Loading from '../../assets/Images/loading_image.gif';
-import styled, { keyframes } from 'styled-components';
 
 const DiaryContainer = () => {
   const dispatch = useDispatch();
@@ -64,17 +62,6 @@ const DiaryContainer = () => {
     }
   }
 
-  if (loading) {
-    return (
-      <LoadingContainer>
-        <LoadingContent>
-          <img src={Loading} alt="Loading..." />
-          <LoadingText>꾸미가 그림을 그리는 중이에요...</LoadingText>
-        </LoadingContent>
-      </LoadingContainer>
-    ); 
-  }
-
   return (
     <DiaryView 
       content={content} 
@@ -84,46 +71,9 @@ const DiaryContainer = () => {
       handleContentChange={handleContentChange}
       navigator={navigator}
       handleSubmit={handleSubmit}
+      loading={loading}
     />
   )
 }
-
-const fadeIn = keyframes`
-  0% {
-    opacity: 0;
-  }
-  50% {
-    opacity: 0.5;
-  }
-  100% {
-    opacity: 1;
-  }
-`;
-
-
-const LoadingContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  background-color: rgba(0, 0, 0, 0.6);
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  z-index: 9999;
-`;
-
-const LoadingContent = styled.div`
-  text-align: center;
-  animation: ${fadeIn} 0.6s;
-`;
-
-const LoadingText = styled.p`
-  font-family: "NanumSquareRound";
-  margin-top: 10px;
-  color: white;
-  font-size: 18px;
-`;
 
 export default DiaryContainer;

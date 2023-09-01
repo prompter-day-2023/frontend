@@ -1,10 +1,19 @@
 import React from 'react'
-import styled from "styled-components";
 import BgImage from '../../assets/Images/BackgroundImage.png'
+import Loading from '../../assets/Images/loading_image.gif';
+import styled, { keyframes } from 'styled-components';
 
-const DiaryView = ({ navigator, content, title, setContent, setTitle, handleContentChange, handleSubmit }) => {
+const DiaryView = ({ navigator, content, title, setContent, setTitle, handleContentChange, handleSubmit,loading }) => {
   return (
       <DiaryWrapper>
+        {loading && (
+            <LoadingContainer>
+                <LoadingContent>
+                    <img src={Loading} alt="Loading..." />
+                    <LoadingText>꾸미가 그림을 그리는 중이에요...</LoadingText>
+                </LoadingContent>
+            </LoadingContainer>
+        )}
           <InfoSection>
               <TitleContainer>
                   <Title>1. 일기를 적어봐요!</Title>
@@ -160,6 +169,57 @@ const Button = styled.button`
     transform: scale(1.05); 
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); // 호버 시 그림자 강조
   }
+`;
+
+
+
+const fadeIn = keyframes`
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+  }
+`;
+
+const fadeInText = keyframes`
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+`;
+
+
+const LoadingContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.6);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 9999;
+`;
+
+const LoadingContent = styled.div`
+  text-align: center;
+  animation: ${fadeIn} 0.6s;
+`;
+
+const LoadingText = styled.p`
+  font-family: "NanumSquareRound";
+  margin-top: 10px;
+  color: white;
+  font-size: 18px;
+  animation: ${fadeInText} 1s ease-in-out; // Apply the animation
+
 `;
 
 export default DiaryView
