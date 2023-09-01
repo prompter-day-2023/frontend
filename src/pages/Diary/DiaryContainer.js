@@ -26,7 +26,6 @@ const DiaryContainer = () => {
   const saveToLocalStorage = (data) => {
     if (!data) return;
     const { image_url, keywords } = data.data;
-  
     localStorage.setItem("imageURLs", JSON.stringify(image_url));
     localStorage.setItem("keywords", JSON.stringify(keywords));
   };

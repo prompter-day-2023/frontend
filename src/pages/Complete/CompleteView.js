@@ -1,51 +1,48 @@
 import React, { useRef } from 'react';
 import styled from "styled-components";
 import BgImage from '../../assets/Images/BackgroundImageTwo.png'
-import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import DiaryComponent from '../../components/Diary/DiaryComponent';
 import { useDispatch } from 'react-redux';
 import { resetTitle, resetContent } from '../../redux/actions';
 import html2canvas from "html2canvas";
-import jsPDF from "jspdf";
+import { jsPDF } from "jspdf";
 
 const CompleteView = () => {
-    const convertedImgUrl = localStorage.getItem("convertedImgUrl");
 
     const diaryRef = useRef(null);
     const dispatch = useDispatch(); 
     const navigator = useNavigate();
 
-    const viewWithPdf = async () => {
-      if (!diaryRef.current) {
-          console.error("DiaryComponent is not mounted yet or ref is not attached.");
-          return;
-      }
-  
-      const paper = diaryRef.current;
-  
-      // Adding a delay to give images a chance to load
-      setTimeout(async () => {
-          try {
-              const canvas = await html2canvas(paper, {
-                  useCORS: true,
-                  logging: true,
-                  scale: 2
-              });
-  
-              const imageFile = canvas.toDataURL("image/png", 1.0);
-              const doc = new jsPDF("p", "mm", "a4");
-              const pageWidth = doc.internal.pageSize.getWidth();
-              const pageHeight = doc.internal.pageSize.getHeight();
-              doc.addImage(imageFile, "PNG", 0, 0, pageWidth, pageHeight);
-              doc.save("diary.pdf");
-          } catch (error) {
-              console.error("Error while converting to PDF: ", error);
-          }
-      }, 1000);  // 1000ms delay, adjust as needed
+    async function fetchImage(url) {
+      const response = await fetch(url);
+      const blob = await response.blob();
+      return new Promise((resolve, reject) => {
+          const reader = new FileReader();
+          reader.onloadend = () => resolve(reader.result);
+          reader.onerror = reject;
+          reader.readAsDataURL(blob);
+      });
   }
   
-    
+
+    const viewWithPdf = async() => {
+      const input = diaryRef.current;
+      const convertedImgUrl = await fetchImage(localStorage.getItem("convertedImgUrl"));
+      localStorage.setItem("convertedImgUrl", convertedImgUrl);
+      html2canvas(input, { logging: true, useCORS: true }).then((canvas) => {
+        const imgData = canvas.toDataURL('image/png');
+          const pdf = new jsPDF('p', 'mm', 'a4');
+          const imgProps = pdf.getImageProperties(imgData);
+          const pdfWidth = pdf.internal.pageSize.getWidth();
+          const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+          pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
+          
+          // Download the generated PDF
+          pdf.save("download.pdf");
+      });
+  };
+  
 
     return (
         <CompleteViewWrapper>
@@ -56,7 +53,7 @@ const CompleteView = () => {
             </TitleContainer>
           </InfoSection>
           <MainSection>
-          <DiaryComponent ref={diaryRef} />
+          <DiaryComponent ref={diaryRef}/>
         <ButtonContainer>
           
         <Button onClick={viewWithPdf}>

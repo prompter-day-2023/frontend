@@ -7,8 +7,8 @@ const MainView = ({navigator, handleModalToggle, isModalVisible}) => {
   return (
     <MainWrapper>
       <TitleContainer>
-      <Title>꿈을 꾸는 AI 그림 일기장</Title>
-        <SubTitle>일기를 적으면 꾸미가</SubTitle><SubTitle> 색칠 공부 도안으로 만들어드려요!</SubTitle>
+      <Title>꿈을 꾸는 AI 그림 일기장, 꾸미</Title>
+        <SubTitle>일기를 적으면 꾸미가</SubTitle><SubTitle> 컬러링 도안으로 만들어드려요!</SubTitle>
       </TitleContainer>
       <ButtonContainer>
         <Button onClick={() => navigator('/diary')}>AI 그림일기 만들기</Button>
@@ -57,7 +57,7 @@ const TitleContainer = styled.div`
 
 const SubTitle = styled.p`
   font-size: 1rem;
-  margin: 0;
+  margin: 5px;
   font-family: "NanumSquareRound";
   font-weight: 100;
 `
@@ -66,7 +66,7 @@ const Title = styled.h2`
   font-weight: 700;
   font-family: "NanumSquareRound";
   font-size: 1.875rem;
-  margin-bottom: 1rem;
+  margin-bottom: 2rem;
 `
 
 const ButtonContainer = styled.div`
@@ -74,7 +74,7 @@ const ButtonContainer = styled.div`
   justify-content: center;
   align-items: center;
   padding: 1.875rem;
-  margin-top: 28rem;
+  margin-top: 26rem;
   margin-bottom: 1.25rem;
 
 `

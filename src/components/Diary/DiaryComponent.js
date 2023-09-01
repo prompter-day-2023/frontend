@@ -32,17 +32,13 @@ const BodyWrapper = styled.div`
     border-radius: 15px;
 `;
 
-const DiaryImg = styled.div`
+const DiaryImg = styled.img`
     border: 2px solid #e9e9e9;
     border-radius: 30px;
     margin-bottom: 30px;
     margin-top: 30px;
     width: 90%;
-    height: 350px;
-    background-image: ${props => `url(${props.imageUrl})`};
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;  // optional, but can avoid potential issues with smaller images
+    object-fit: cover;
 `;
 
 const DiaryHeader = styled.div`
@@ -125,7 +121,7 @@ const DiaryComponent = React.forwardRef((props, ref) => {
 
     return (
         <>
-            <GlobalStyle />
+        <GlobalStyle />
             <BodyWrapper ref={ref}>
                 <OuterBorder>
                 <DiaryHeader>
@@ -139,7 +135,7 @@ const DiaryComponent = React.forwardRef((props, ref) => {
                     <HeaderTitleContent>{dayName}</HeaderTitleContent>
                     <TopPlainText>요일</TopPlainText>
                 </DiaryHeader>  
-                <DiaryImg imageUrl={convertedImgUrl} />
+                <DiaryImg src={convertedImgUrl} alt="Diary Image" />
                 </OuterBorder>
                 <DiaryContent>
                     <Content>{content}</Content>
