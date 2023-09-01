@@ -12,6 +12,7 @@ import Info from "./pages/Info/InfoContainer"
 const GlobalStyle = createGlobalStyle`
   body {
     margin: 0;
+    overflow: hidden;
   }
 `;
 

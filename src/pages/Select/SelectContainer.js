@@ -9,6 +9,7 @@ const SelectContainer = () => {
     const [keyword, setKeyword] = useState([]);
     const [loading, setLoading] = useState(false);
     const [localImageURLs, setLocalImageURLs] = useState([]);
+
     const title = useSelector(state => state.title);
     const content = useSelector(state => state.content);
 
@@ -50,7 +51,7 @@ const SelectContainer = () => {
   
     localStorage.setItem("imageURLs", JSON.stringify(image_url));
     localStorage.setItem("keywords", JSON.stringify(keywords));
-    setLocalImageURLs(image_url);  // <- 상태를 즉시 업데이트합니다.
+    setLocalImageURLs(image_url);
   };
 
   

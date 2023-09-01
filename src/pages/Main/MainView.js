@@ -1,6 +1,5 @@
 import React from 'react'
 import styled from 'styled-components'
-import MainImage from '../../assets/Images/BookAndPencil.svg'
 import BgImage from '../../assets/Images/BackgroundImage.png'
 import GenrativeAI from '../../assets/Images/GnerativeAI.svg'
 
@@ -11,11 +10,6 @@ const MainView = ({navigator, handleModalToggle, isModalVisible}) => {
       <Title>꿈을 꾸는 AI 그림 일기장</Title>
         <SubTitle>일기를 적으면 꾸미가</SubTitle><SubTitle> 색칠 공부 도안으로 만들어드려요!</SubTitle>
       </TitleContainer>
-      <ServiceContainer>
-        <ServiceWrapper>
-          <img src={MainImage} alt='mainImage'/>
-        </ServiceWrapper>
-      </ServiceContainer>
       <ButtonContainer>
         <Button onClick={() => navigator('/diary')}>AI 그림일기 만들기</Button>
       </ButtonContainer>
@@ -39,17 +33,18 @@ const MainView = ({navigator, handleModalToggle, isModalVisible}) => {
 }
 
 const MainWrapper = styled.div`
-  background-color: #f3f3f3;
+  overflow: hidden;
   background-image: url(${BgImage});
-  background-position: center; 
+  background-position: center center; 
   background-repeat: no-repeat; 
-  background-size: cover; 
+  background-size: cover;  
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   margin: 0 auto;
-  height: 100vh;
+  width: 100vw;  
+  height: 100vh; 
 `
 
 const TitleContainer = styled.div`
@@ -57,71 +52,63 @@ const TitleContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding-bottom: 1rem;
+  padding-bottom: 1.375rem;
 `;
 
 const SubTitle = styled.p`
-  font-size: 18px;
+  font-size: 1rem;
   margin: 0;
   font-family: "NanumSquareRound";
   font-weight: 100;
-  font-size: 16px;
-
 `
+
 const Title = styled.h2`
   font-weight: 700;
   font-family: "NanumSquareRound";
-  font-size: 22px;
-
-`
-
-const ServiceContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`
-
-const ServiceWrapper = styled.div`
-  width: 200px;
-  height: 350px;
-  border-radius: 15px;
-  text-align: center;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  font-size: 1.875rem;
+  margin-bottom: 1rem;
 `
 
 const ButtonContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 50px;
+  padding: 1.875rem;
+  margin-top: 28rem;
+  margin-bottom: 1.25rem;
+
 `
 
 const Button = styled.button`
-  width: 320px;
-  height: 60px;
+  width: 24rem;
+  height: 4rem;
   cursor: pointer;
-  padding: 10px;
-  border-radius: 30px;
-  border: none;
+  padding: 1rem;
+  border-radius: 2rem;
   font-family: "NanumSquareRound";
   color: #fff;
-  background: linear-gradient(145deg, #3b8df5, #4577f8); // 선형 그라데이션 추가
-  font-size: 18px;
-  transition: transform 0.3s, box-shadow 0.3s; 
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1), inset 0 2px 4px rgba(255, 255, 255, 0.2); // 내부 그림자 추가
+  background: linear-gradient(to bottom, #00A3FF, #7660FF);
+  border: none;
+  font-size: 1.125rem;
+  box-shadow:
+    0 0.3125rem 0.9375rem rgba(0, 0, 0, 0.2),
+    inset 0 0.125rem 0.3125rem rgba(255, 255, 255, 0.2),
+    inset 0 -0.125rem 0.3125rem rgba(0, 0, 0, 0.2); 
 
   &:hover {
-    transform: scale(1.05); 
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15), inset 0 2px 4px rgba(255, 255, 255, 0.2); // 호버 시 그림자 강조
+    box-shadow: 
+      0 0.4375rem 1.25rem rgba(0, 0, 0, 0.15), 
+      inset 0 0.1875rem 0.3125rem rgba(255, 255, 255, 0.2),
+      inset 0 -0.1875rem 0.3125rem rgba(0, 0, 0, 0.2);
   }
+  
 `;
 
 const SubInfoText = styled.p`
   font-family: "NanumSquareRound";
   font-weight: 100;
-  font-size: 14px;
+  font-size: 0.875rem;
+  margin: 0;
 `
 
 const SubInfoButton = styled.button`
@@ -134,44 +121,44 @@ const SubInfoButton = styled.button`
 
 const Modal = styled.div`
   position: fixed;
-  width: 520px;
-  height: 390px;
+  width: 32.5rem;
+  height: 24.375rem;
   display: flex;
   justify-content: center;
   align-items: center;
 `;
 
 const ModalContent = styled.div`
-  width: 100%;
-  height: 390px;
-  padding: 20px;
+  width: 90%;
+  height: 23.75rem;
+  padding: 1.25rem;
   background-color: #fff;
-  border-radius: 15px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 1rem;
+  box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.1);
 `;
 
 const CloseButton = styled.button`
   position: absolute;
-  right: 20px;
+  right: 1.25rem;
   background-color: transparent;
   border: none;
   cursor: pointer;
-  font-size: 30px;
+  font-size: 1.875rem;
   color: #747474;
 `;
 
 const ModalTitle = styled.h3`
   font-family: NanumSquareRound;
   text-align: center;
-  padding-top: 30px;
-  padding-bottom: 10px;
+  padding-top: 1.875rem;
+  padding-bottom: 0.625rem;
 `
 
 const ModalContents = styled.p`
 font-family: NanumSquareRound;
 font-weight: 300;
 line-height: 2;
-padding: 15px;
+padding: 1rem;
 `
 
 const ImageContainer = styled.div`

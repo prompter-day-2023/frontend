@@ -44,7 +44,7 @@ const HeaderStyled = styled.div`
   left: 0;
   right: 0;
   height: 80px;
-  background-color: #fff;
+  background-color: rgba(255, 255, 255, 0.5);  // 변경된 부분
   display: flex;
   align-items: center;
   justify-content: flex-start;
@@ -76,7 +76,6 @@ const StyledLink = styled(Link)`
   padding-left: 10px;
   padding-right: 10px;
   text-decoration: none;
-  background-color: #fff;
 
   &:hover {
     color: #4192F7;

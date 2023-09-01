@@ -1,5 +1,5 @@
 import React from 'react'
-import BgImage from '../../assets/Images/BackgroundImage.png'
+import BgImage from '../../assets/Images/BackgroundImageTwo.png'
 import Loading from '../../assets/Images/loading_image.gif';
 import styled, { keyframes } from 'styled-components';
 
@@ -152,23 +152,28 @@ const ButtonContainer = styled.div`
 `
 
 const Button = styled.button`
-  width: 320px;
-  height: 60px;
-  background-color: ${props => props.disabled ? "#747474" : "#4192F7"};
-  cursor: ${props => props.disabled ? 'not-allowed' : 'pointer'};
-  padding: 10px;
-  border-radius: 30px;
-  border: none;
+  width: 24rem;
+  height: 4rem;
+  cursor: pointer;
+  padding: 1.25rem;
+  border-radius: 2rem;
   font-family: "NanumSquareRound";
+  background: ${props => props.disabled ? '#747474' :  'linear-gradient(to bottom, #00A3FF, #7660FF)'};
   color: #fff;
-  font-size: 18px;
-  transition: transform 0.3s, box-shadow 0.3s; 
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); // 버튼에 초기 그림자 추가
+  border: none;
+  font-size: 1.125rem;
+  box-shadow:
+    0 0.3rem 1rem rgba(0, 0, 0, 0.2),
+    inset 0 0.125rem 0.3125rem rgba(255, 255, 255, 0.2),
+    inset 0 -0.125rem 0.3125rem rgba(0, 0, 0, 0.2); 
 
   &:hover {
-    transform: scale(1.05); 
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); // 호버 시 그림자 강조
+    box-shadow: 
+      0 0.4rem 1.25rem rgba(0, 0, 0, 0.15), 
+      inset 0 0.1875rem 0.3125rem rgba(255, 255, 255, 0.2),
+      inset 0 -0.1875rem 0.3125rem rgba(0, 0, 0, 0.2);
   }
+  
 `;
 
 

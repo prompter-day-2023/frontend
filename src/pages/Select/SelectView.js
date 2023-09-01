@@ -1,5 +1,5 @@
 import React from 'react';
-import BgImage from '../../assets/Images/BackgroundImage.png'
+import BgImage from '../../assets/Images/BackgroundImageTwo.png'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faRotateRight } from "@fortawesome/free-solid-svg-icons";
 import { setImageUrl } from '../../redux/actions';

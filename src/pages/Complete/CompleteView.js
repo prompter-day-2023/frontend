@@ -1,35 +1,50 @@
-import React from 'react'
+import React, { useRef } from 'react';
 import styled from "styled-components";
-import BgImage from '../../assets/Images/BackgroundImage.png'
+import BgImage from '../../assets/Images/BackgroundImageTwo.png'
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import DiaryComponent from '../../components/Diary/DiaryComponent';
+import { useDispatch } from 'react-redux';
+import { resetTitle, resetContent } from '../../redux/actions';
+import html2canvas from "html2canvas";
+import jsPDF from "jspdf";
 
 const CompleteView = () => {
     const convertedImgUrl = localStorage.getItem("convertedImgUrl");
 
-    const downloadFile = () => {
-      const url = convertedImgUrl;
-    
-      axios.get(url, { 
-        responseType: 'blob',  
-        withCredentials: false,
-      })
-      .then((response) => {
-          const blob = new Blob([response.data]);
-          const downloadUrl = window.URL.createObjectURL(blob);
-          const a = document.createElement('a');
-          a.href = downloadUrl;
-          a.download = "download.png";
-          document.body.appendChild(a);
-          a.click();
-          setTimeout(() => {
-              window.URL.revokeObjectURL(downloadUrl);
-          }, 60000);
-          a.remove();
-      })
-      .catch((err) => {
-          console.error('err: ', err);
-      });
-    };
+    const diaryRef = useRef(null);
+    const dispatch = useDispatch(); 
+    const navigator = useNavigate();
+
+    const viewWithPdf = async () => {
+      if (!diaryRef.current) {
+          console.error("DiaryComponent is not mounted yet or ref is not attached.");
+          return;
+      }
+  
+      const paper = diaryRef.current;
+  
+      // Adding a delay to give images a chance to load
+      setTimeout(async () => {
+          try {
+              const canvas = await html2canvas(paper, {
+                  useCORS: true,
+                  logging: true,
+                  scale: 2
+              });
+  
+              const imageFile = canvas.toDataURL("image/png", 1.0);
+              const doc = new jsPDF("p", "mm", "a4");
+              const pageWidth = doc.internal.pageSize.getWidth();
+              const pageHeight = doc.internal.pageSize.getHeight();
+              doc.addImage(imageFile, "PNG", 0, 0, pageWidth, pageHeight);
+              doc.save("diary.pdf");
+          } catch (error) {
+              console.error("Error while converting to PDF: ", error);
+          }
+      }, 1000);  // 1000ms delay, adjust as needed
+  }
+  
     
 
     return (
@@ -41,20 +56,20 @@ const CompleteView = () => {
             </TitleContainer>
           </InfoSection>
           <MainSection>
-          <DrawingDiarySection>
-                <DrawingDiary id="drawingDiary" style={{ backgroundImage: `url(${convertedImgUrl})` }} />
-            </DrawingDiarySection>
+          <DiaryComponent ref={diaryRef} />
         <ButtonContainer>
           
-        <Button onClick={downloadFile}>
+        <Button onClick={viewWithPdf}>
           저장하기
         </Button>
               <SubButton 
               onClick={() => {
-
+                dispatch(resetTitle()); 
+                dispatch(resetContent());
+                navigator('/')
               }}
             >
-                색칠방법 보기
+                메인으로 돌아가기
               </SubButton>
               </ButtonContainer>
             </MainSection>
@@ -102,19 +117,6 @@ const SubTitle = styled.p`
 
 `
 
-const DrawingDiarySection = styled.div`
-`
-
-const DrawingDiary = styled.img`
-    width: 800px;
-    height: 550px;
-    border: 3px solid #e9e9e9;
-    border-radius: 30px;
-    background-color: #fff;
-    background-size: contain;
-    background-position: center;
-    background-repeat: no-repeat;
-`;
 
 const Button = styled.button`
   width: 320px;

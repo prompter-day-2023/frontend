@@ -36,7 +36,7 @@ const InfoWrapper = styled.div`
   background-color: #f3f3f3;
   background-image: url(${BgImage});
   background-position: center; 
-  background-repeat: no-repeat; 
+  background-repeat: no-repeat;
   background-size: cover; 
   display: flex;
   flex-direction: column;
@@ -48,13 +48,12 @@ const InfoWrapper = styled.div`
 
 const InfoCardContainer = styled.div`
   display: flex;
-  gap: 20px;
+  gap: 30px;
 `
 
 const InfoCard = styled.div`
   width: 400px;
   height: 420px;
-  border: 2px solid #e9e9e9;
   background-color: #fff;
   border-radius: 25px;
   transition: transform 0.3s, box-shadow 0.3s; 
