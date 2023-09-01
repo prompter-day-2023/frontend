@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { setTitle, setContent } from '../../redux/actions';
 import DiaryView from './DiaryView'
@@ -24,7 +24,6 @@ const DiaryContainer = () => {
 
   const saveToLocalStorage = (data) => {
     if (!data) return;
-    console.log(data);
     const { image_url, keywords } = data.data;
   
     localStorage.setItem("imageURLs", JSON.stringify(image_url));
@@ -32,10 +31,8 @@ const DiaryContainer = () => {
   };
 
   const handleSubmit = async () => {
-    console.log(title);
-    console.log(content);
     try {
-        const endpoint = 'http://127.0.0.1:5000/diary';
+        const endpoint = `http://${process.env.REACT_APP_BACKEND_REQUEST}:${process.env.REACT_APP_BACKEND_PORT}/diary`;
         const payload = {
             title: title,
             contents: content
