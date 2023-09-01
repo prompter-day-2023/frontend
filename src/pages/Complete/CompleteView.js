@@ -1,10 +1,36 @@
 import React from 'react'
 import styled from "styled-components";
 import BgImage from '../../assets/Images/BackgroundImage.png'
+import axios from 'axios';
 
 const CompleteView = () => {
     const convertedImgUrl = localStorage.getItem("convertedImgUrl");
-  
+
+    const downloadFile = () => {
+      const url = convertedImgUrl;
+    
+      axios.get(url, { 
+        responseType: 'blob',  
+        withCredentials: false,
+      })
+      .then((response) => {
+          const blob = new Blob([response.data]);
+          const downloadUrl = window.URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = downloadUrl;
+          a.download = "download.png";
+          document.body.appendChild(a);
+          a.click();
+          setTimeout(() => {
+              window.URL.revokeObjectURL(downloadUrl);
+          }, 60000);
+          a.remove();
+      })
+      .catch((err) => {
+          console.error('err: ', err);
+      });
+    };
+    
 
     return (
         <CompleteViewWrapper>
@@ -16,12 +42,13 @@ const CompleteView = () => {
           </InfoSection>
           <MainSection>
           <DrawingDiarySection>
-            <DrawingDiary id="drawingDiary" style={{ backgroundImage: `url(${convertedImgUrl})` }} />
-        </DrawingDiarySection>
+                <DrawingDiary id="drawingDiary" style={{ backgroundImage: `url(${convertedImgUrl})` }} />
+            </DrawingDiarySection>
         <ButtonContainer>
-            <Button>
-                저장하기
-            </Button>
+          
+        <Button onClick={downloadFile}>
+          저장하기
+        </Button>
               <SubButton 
               onClick={() => {
 
@@ -78,13 +105,13 @@ const SubTitle = styled.p`
 const DrawingDiarySection = styled.div`
 `
 
-const DrawingDiary = styled.div`
+const DrawingDiary = styled.img`
     width: 800px;
     height: 550px;
     border: 3px solid #e9e9e9;
     border-radius: 30px;
     background-color: #fff;
-    background-size: contain; // or use 'cover' depending on your requirement
+    background-size: contain;
     background-position: center;
     background-repeat: no-repeat;
 `;

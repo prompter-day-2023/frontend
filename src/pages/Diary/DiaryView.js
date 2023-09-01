@@ -26,7 +26,7 @@ const DiaryView = ({ navigator, content, title, setContent, setTitle, handleCont
                       value={content}
                       onChange={handleContentChange}
                   />
-                  <CharCount exceedLimit={content.length > 250}>{content.length} / 250 글자</CharCount>
+                  <CharCount exceedlimit={content.length > 250}>{content.length} / 250 글자</CharCount>
               </TextAreaWrapper>
           </TextSection>
 
