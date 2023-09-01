@@ -75,10 +75,10 @@ const SelectView = ({ navigator, keyword, imageURLs }) => {
     const handleImageClick = async (url) => {
       try {
           const response = await axios.post(`http://${process.env.REACT_APP_BACKEND_REQUEST}:${process.env.REACT_APP_BACKEND_PORT}/line-drawing`, { imageUrl: url });
-          console.log(response);
-          const convertedImgUrl = response.data.response;
+          console.log('rrrr', response.data);
+          const { data } = response.data;
           localStorage.clear();
-          localStorage.setItem('convertedImgUrl', convertedImgUrl);
+          localStorage.setItem('convertedImgUrl', data);
           dispatch(setImageUrl(url));
           navigator('/complete');
       
