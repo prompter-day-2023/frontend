@@ -35,7 +35,7 @@ const DiaryContainer = () => {
     console.log(title);
     console.log(content);
     try {
-        const endpoint = 'http://127.0.0.1:5000/diary';
+        const endpoint = `http://${process.env.REACT_APP_BACKEND_REQUEST}:${process.env.REACT_APP_BACKEND_PORT}/diary`;
         const payload = {
             title: title,
             contents: content

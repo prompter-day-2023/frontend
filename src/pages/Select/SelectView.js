@@ -47,7 +47,7 @@ const SelectView = ({ navigator, keyword, imageURLs }) => {
       console.log(content);
 
       try {
-          const endpoint = 'http://127.0.0.1:5000/diary';
+          const endpoint = `http://${process.env.REACT_APP_BACKEND_REQUEST}:${process.env.REACT_APP_BACKEND_PORT}/diary`;
           const payload = {
               title: title,
               contents: content
@@ -74,7 +74,7 @@ const SelectView = ({ navigator, keyword, imageURLs }) => {
 
     const handleImageClick = async (url) => {
       try {
-          const response = await axios.post('http://127.0.0.1:5000/line-drawing', { imageUrl: url });
+          const response = await axios.post(`http://${process.env.REACT_APP_BACKEND_REQUEST}:${process.env.REACT_APP_BACKEND_PORT}/line-drawing`, { imageUrl: url });
           console.log(response);
           const convertedImgUrl = response.data.response;
           localStorage.clear();
