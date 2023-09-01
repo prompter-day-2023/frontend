@@ -16,7 +16,6 @@ const SelectContainer = () => {
       }
       if (keywords) {
           setKeyword(JSON.parse(keywords));
-          console.log(keyword);
       }
   }, []);
 

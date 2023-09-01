@@ -34,7 +34,6 @@ const SelectView = ({ navigator, keyword, imageURLs }) => {
 
     const saveToLocalStorage = (data) => {
       if (!data) return;
-      console.log(data);
       const { image_url, keywords } = data.data;
     
       localStorage.setItem("imageURLs", JSON.stringify(image_url));
@@ -43,9 +42,6 @@ const SelectView = ({ navigator, keyword, imageURLs }) => {
     };
 
     const handleButtonClick = async () => {
-      console.log(title);
-      console.log(content);
-
       try {
           const endpoint = `http://${process.env.REACT_APP_BACKEND_REQUEST}:${process.env.REACT_APP_BACKEND_PORT}/diary`;
           const payload = {
@@ -75,7 +71,6 @@ const SelectView = ({ navigator, keyword, imageURLs }) => {
     const handleImageClick = async (url) => {
       try {
           const response = await axios.post(`http://${process.env.REACT_APP_BACKEND_REQUEST}:${process.env.REACT_APP_BACKEND_PORT}/line-drawing`, { imageUrl: url });
-          console.log('rrrr', response.data);
           const { data } = response.data;
           localStorage.clear();
           localStorage.setItem('convertedImgUrl', data);
